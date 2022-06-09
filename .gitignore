@@ -1,0 +1,4 @@
+# Project exclude paths
+/kafka_course/target/
+# 项目排除路径
+/flink_course/target/

@@ -1,0 +1,11 @@
+{"namespace": "cn.doitedu.flink.avro.schema",
+  "type": "record",
+  "name": "AvroEventLog",
+  "fields": [
+      {"name": "guid", "type": "long"},
+      {"name": "sessionId",  "type": "string"},
+      {"name": "eventId",  "type": "string"},
+      {"name": "timeStamp",  "type": "long"},
+      {"name": "eventInfo", "type": { "type":"map","values": "string"} }
+  ]
+}

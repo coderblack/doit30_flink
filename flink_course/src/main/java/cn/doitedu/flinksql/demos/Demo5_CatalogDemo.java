@@ -82,7 +82,6 @@ public class Demo5_CatalogDemo {
         tenv.executeSql("show tables").print();
 
 
-        /*tenv.listCatalogs();*/
 
     }
 }

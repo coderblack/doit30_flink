@@ -12,4 +12,5 @@ package cn.doitedu.flinksql.demos;
  *
  */
 public class Demo6_Exercise {
+
 }

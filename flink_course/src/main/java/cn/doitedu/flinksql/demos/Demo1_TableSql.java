@@ -1,13 +1,16 @@
 package cn.doitedu.flinksql.demos;
 
 import org.apache.flink.table.api.EnvironmentSettings;
+import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 
-public class Demo1 {
+import static org.apache.flink.table.api.Expressions.$;
+
+public class Demo1_TableSql {
 
     public static void main(String[] args) {
 
-        EnvironmentSettings envSettings = EnvironmentSettings.inStreamingMode();
+        EnvironmentSettings envSettings = EnvironmentSettings.inStreamingMode();  // 流计算模式
         TableEnvironment tableEnv = TableEnvironment.create(envSettings);
 
         // 把kafka中的一个topic： doit30-2 数据，映射成一张flinkSql表
@@ -32,6 +35,17 @@ public class Demo1 {
                         + "  'json.ignore-parse-errors' = 'true'                "
                         + " )                                                   "
         );
+
+
+        /**
+         * 把sql表名， 转成 table对象
+         */
+        Table table = tableEnv.from("t_kafka");
+        // 利用table api进行查询计算
+        table.groupBy($("gender"))
+                .select($("gender"), $("age").avg())
+                .execute()
+                .print();
 
 
         tableEnv.executeSql("select gender,avg(age) as avg_age  from  t_kafka group by gender").print();

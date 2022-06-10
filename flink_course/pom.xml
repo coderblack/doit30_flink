@@ -50,6 +50,14 @@
             <version>${flink.version}</version>
         </dependency>
 
+        <!-- flinkSql 解析csv数据格式需要的依赖 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-csv</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+
 
 
         <dependency>

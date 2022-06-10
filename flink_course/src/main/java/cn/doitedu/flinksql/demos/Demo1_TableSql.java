@@ -3,12 +3,19 @@ package cn.doitedu.flinksql.demos;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
+import org.apache.flink.table.catalog.CatalogDatabaseImpl;
+import org.apache.flink.table.catalog.ConnectorCatalogTable;
+import org.apache.flink.table.catalog.ObjectPath;
+import org.apache.flink.table.catalog.exceptions.DatabaseAlreadyExistException;
+import org.apache.flink.table.catalog.hive.HiveCatalog;
+
+import java.util.HashMap;
 
 import static org.apache.flink.table.api.Expressions.$;
 
 public class Demo1_TableSql {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DatabaseAlreadyExistException {
 
         EnvironmentSettings envSettings = EnvironmentSettings.inStreamingMode();  // 流计算模式
         TableEnvironment tableEnv = TableEnvironment.create(envSettings);

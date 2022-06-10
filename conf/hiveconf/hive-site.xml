@@ -1,0 +1,6 @@
+<configuration>
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://doitedu:9083</value>
+    </property>
+</configuration>

@@ -1,6 +1,5 @@
 package cn.doitedu.flink.java.exercise.excercise1;
 
-import cn.doitedu.flink.java.demos.EventLog;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.flink.api.common.state.BroadcastState;
 import org.apache.flink.api.common.state.MapStateDescriptor;

@@ -65,9 +65,10 @@ public class Demo5_CatalogDemo {
         tenv.executeSql("create  view if not exists `mycatalog`.`default`.`t_kafka_view` as select id,name,age from `mycatalog`.`default`.`t_kafka`");
 
 
+        // 列出当前会话中所有的catalog
         tenv.listCatalogs();
 
-
+        // 列出 default_catalog中的库和表
         tenv.executeSql("show catalogs").print();
         tenv.executeSql("use catalog default_catalog");
         tenv.executeSql("show databases").print();
@@ -76,12 +77,15 @@ public class Demo5_CatalogDemo {
 
         System.out.println("----------------------");
 
+        // 列出 mycatalog中的库和表
         tenv.executeSql("use catalog mycatalog");
         tenv.executeSql("show databases").print();
         tenv.executeSql("use  `default`");
         tenv.executeSql("show tables").print();
 
+        System.out.println("----------------------");
 
-
+        // 列出临时表
+        tenv.listTemporaryTables();
     }
 }

@@ -37,13 +37,13 @@ public class Demo4_SqlTableCreate {
                                 .column("gender", DataTypes.STRING())
                                 .build())
                         .format("csv")
-                        .option("path", "file:///D:/devworks/IdeaProjects/doit30_flink/data/sqldemo/")
+                        .option("path", "data/sqldemo/a.txt")
                         .option("csv.ignore-parse-errors", "true")
-                        .option("csv.allow-comments", "true")
                         .build());
 
 
-        tenv.executeSql("select * from table_a")/*.print()*/;
+        tenv.executeSql("select * from table_a").print();
+        System.exit(1);
         tenv.executeSql("select gender,max(age) as max_age from table_a group by gender")/*.print()*/;
 
 

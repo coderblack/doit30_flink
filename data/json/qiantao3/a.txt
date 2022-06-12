@@ -1,0 +1,2 @@
+{"id":1,"friends":[{"name":"a","info":{"addr":"bj","gender":"male"}},{"name":"b","info":{"addr":"sh","gender":"female"}}]}
+{"id":2,"friends":[{"name":"b","info":{"addr":"sh","gender":"male"}},{"name":"c","info":{"addr":"bj","gender":"female"}}]}

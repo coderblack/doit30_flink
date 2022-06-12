@@ -70,7 +70,40 @@ public class Demo8_JsonFormat {
         +------+---------------------------------------------------+------+-----+--------+-----------+  */
         tenv.executeSql("select * from t_json2")/*.print()*/;
         // 查询每个人的 id 和 formal名 和  height
-        tenv.executeSql("select id, name.formal, name.height  from t_json2").print();
+        tenv.executeSql("select id, name.formal, name.height  from t_json2")/*.print()*/;
+
+
+
+
+        // {"id":1,"friends":[{"name":"a","info":{"addr":"bj","gender":"male"}},{"name":"b","info":{"addr":"sh","gender":"female"}}]}
+        tenv.executeSql(
+                "create table t_json3(                                      "
+                        + "   id  int,                                                "
+                        + "   friends array<row<name string,info map<string,string>>> "
+                        + ")with(                                      "
+                        + " 'connector' = 'filesystem',                "
+                        + " 'path' = 'data/json/qiantao3/',            "
+                        + " 'format'='json'                            "
+                        + ")                                           "
+        );
+
+        tenv.executeSql("desc t_json3").print();
+        /*
+        +---------+-------------------------------------------------------+------+-----+--------+-----------+
+        |    name |                                                  type | null | key | extras | watermark |
+        +---------+-------------------------------------------------------+------+-----+--------+-----------+
+        |      id |                                                   INT | true |     |        |           |
+        | friends | ARRAY<ROW<`name` STRING, `info` MAP<STRING, STRING>>> | true |     |        |           |
+        +---------+-------------------------------------------------------+------+-----+--------+-----------+
+        */
+        tenv.executeSql("select * from t_json3")/*.print()*/;
+        tenv.executeSql("select id," +
+                "friends[1].name as name1,friends[1].info['addr'] as addr1, friends[1].info['gender'] as gender1,   " +
+                "friends[2].name as name2,friends[2].info['addr'] as addr2, friends[2].info['gender'] as gender2    " +
+                "from  t_json3").print();
+
+
+
     }
 
 }

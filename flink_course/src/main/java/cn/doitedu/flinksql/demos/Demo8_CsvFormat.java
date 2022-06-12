@@ -37,7 +37,7 @@ public class Demo8_CsvFormat {
                         + " 'csv.disable-quote-character' = 'false',    "
                         + " 'csv.quote-character' = '|',                "
                         + "  'csv.ignore-parse-errors' = 'true' ,       "
-                        + "  'csv.null-literal' = 'AA'    ,             "
+                        + "  'csv.null-literal' = '\\N'    ,            "
                         + "  'csv.allow-comments' = 'true'             "
                         + ")                                           "
         );

@@ -54,6 +54,10 @@ public class Demo8_JsonFormat {
          *   二、简单嵌套json建表示例
          *   嵌套对象，解析成Row类型
          *   {"id":12,"name":{"nick":"doe3","formal":"doit edu3","height":170}}
+         *
+         *   id  int,
+         *   name row<nick string,formal string, height int>
+         *
          */
         tenv.createTable("t_json2",
                 TableDescriptor

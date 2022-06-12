@@ -13,7 +13,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
  * @QQ: 657270652
  * @Date: 2022/6/12
  * @Desc: 学大数据，到多易教育
- * csv format详解
+ *        csv format详解
  **/
 public class Demo8_CsvFormat {
 

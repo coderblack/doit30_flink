@@ -24,8 +24,13 @@ import org.apache.kafka.clients.consumer.OffsetResetStrategy;
 
 
 /**
- * 创建 Table对象的 n 种办法
- */
+ * @Author: deep as the sea
+ * @Site: <a href="www.51doit.com">多易教育</a>
+ * @QQ: 657270652
+ * @Date: 2022/6/12
+ * @Desc: 学大数据，到多易教育
+ *        Table对象创建方式示例代码
+ **/
 public class Demo3_TableObjectCreate {
 
     public static void main(String[] args) throws Exception {
@@ -39,10 +44,16 @@ public class Demo3_TableObjectCreate {
                 "......");*/
 
 
-        //  从一个已存在的表名，来创建Table对象
+        /**
+         * 一、从一个已存在的表名，来创建Table对象
+         */
         // Table table_a = tenv.from("table_a");
 
-        // 从一个TableDescriptor来创建table对象
+
+
+        /**
+         * 二、从一个TableDescriptor来创建table对象
+         */
         Table table = tenv.from(TableDescriptor
                 .forConnector("kafka")  // 指定连接器
                 .schema(Schema.newBuilder()  // 指定表结构
@@ -61,7 +72,9 @@ public class Demo3_TableObjectCreate {
                 .build());
 
 
-        // 从数据流来创建table对象
+        /**
+         * 三、从数据流来创建table对象
+         */
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()
                 .setBootstrapServers("doit01:9092")
                 .setTopics("doit30-3")
@@ -74,20 +87,16 @@ public class Demo3_TableObjectCreate {
         /*kfk.print();*/
 
 
-        // 不指定schema，将流创建成Table对象，表的schema是默认的，往往不符合我们的要求
+        // 3.1 不指定schema，将流创建成Table对象，表的schema是默认的，往往不符合我们的要求
         Table table1 = tenv.fromDataStream(kfkStream);
         /*table1.execute().print();*/
 
-
-        // 为了获得更理想的表结构，可以先把数据流中的数据转成javabean类型
+        // 3.2 为了获得更理想的表结构，可以先把数据流中的数据转成javabean类型
         SingleOutputStreamOperator<Person> javaBeanStream = kfkStream.map(json -> JSON.parseObject(json, Person.class));
         Table table2 = tenv.fromDataStream(javaBeanStream);
         /*table2.execute().print();*/
 
-
-        /**
-         * 手动指定 schema定义，来将一个javabean流，转成Table对象
-         */
+        // 3.3 手动指定 schema定义，来将一个javabean流，转成Table对象
         Table table3 = tenv.fromDataStream(javaBeanStream,
                 Schema.newBuilder()
                         .column("id",DataTypes.BIGINT())
@@ -100,12 +109,14 @@ public class Demo3_TableObjectCreate {
 
 
         /**
-         * 用测试数据来得到一个表对象
+         * 四、用测试数据来得到一个表对象
          */
+        // 4.1 单字段数据建测试表
         Table table4 = tenv.fromValues(1, 2, 3, 4, 5);
         /*table4.printSchema();
         table4.execute().print();*/
 
+        // 4.2 多字段数据建测试表
         Table table5 = tenv.fromValues(
                 DataTypes.ROW(
                         DataTypes.FIELD("id",DataTypes.INT()),
@@ -119,7 +130,6 @@ public class Demo3_TableObjectCreate {
         );
         table5.printSchema();
         table5.execute().print();
-
 
         env.execute();
     }

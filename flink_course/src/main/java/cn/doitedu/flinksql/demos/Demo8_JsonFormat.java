@@ -13,7 +13,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
  * @QQ: 657270652
  * @Date: 2022/6/12
  * @Desc: 学大数据，到多易教育
- * json format详解
+ *        json format详解
  **/
 public class Demo8_JsonFormat {
 
@@ -25,6 +25,11 @@ public class Demo8_JsonFormat {
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env, settings);
 
 
+        /**
+         * 一、 简单嵌套json格式，建表示例
+         * 嵌套对象解析成 Map类型
+         * {"id":12,"name":{"nick":"doe3","formal":"doit edu3","height":170}}
+         */
         tenv.executeSql(
                 "create table t_json1(                       "
                         + "  id int,                                   "
@@ -45,7 +50,11 @@ public class Demo8_JsonFormat {
         tenv.executeSql("select id,name['nick'] as nick from t_json1")/*.print()*/;
 
 
-        // {"id":12,"name":{"nick":"doe3","formal":"doit edu3","height":170}}
+        /**
+         *   二、简单嵌套json建表示例
+         *   嵌套对象，解析成Row类型
+         *   {"id":12,"name":{"nick":"doe3","formal":"doit edu3","height":170}}
+         */
         tenv.createTable("t_json2",
                 TableDescriptor
                         .forConnector("filesystem")
@@ -75,7 +84,10 @@ public class Demo8_JsonFormat {
 
 
 
-        // {"id":1,"friends":[{"name":"a","info":{"addr":"bj","gender":"male"}},{"name":"b","info":{"addr":"sh","gender":"female"}}]}
+        /**
+         * 三、复杂嵌套json，建表示例
+         * {"id":1,"friends":[{"name":"a","info":{"addr":"bj","gender":"male"}},{"name":"b","info":{"addr":"sh","gender":"female"}}]}
+         */
         tenv.executeSql(
                 "create table t_json3(                                      "
                         + "   id  int,                                                "
@@ -100,9 +112,7 @@ public class Demo8_JsonFormat {
         tenv.executeSql("select id," +
                 "friends[1].name as name1,friends[1].info['addr'] as addr1, friends[1].info['gender'] as gender1,   " +
                 "friends[2].name as name2,friends[2].info['addr'] as addr2, friends[2].info['gender'] as gender2    " +
-                "from  t_json3").print();
-
-
+                "from  t_json3")/*.print()*/;
 
     }
 

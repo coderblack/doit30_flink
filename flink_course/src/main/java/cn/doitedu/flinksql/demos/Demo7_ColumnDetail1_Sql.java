@@ -8,7 +8,7 @@ import org.apache.flink.table.api.TableEnvironment;
  * @Site: <a href="www.51doit.com">多易教育</a>
  * @QQ: 657270652
  * @Date: 2022/6/11
- * @Desc: schema定义详细示例
+ * @Desc: schema定义详细示例 （sql DDL语句定义表结构）
  **/
 public class Demo7_ColumnDetail1_Sql {
     public static void main(String[] args) {

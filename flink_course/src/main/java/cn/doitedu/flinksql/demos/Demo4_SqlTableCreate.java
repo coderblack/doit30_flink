@@ -16,6 +16,14 @@ import org.apache.kafka.clients.consumer.OffsetResetStrategy;
  * 带sql表名的 表创建
  * 各种方式
  */
+/**
+ * @Author: deep as the sea
+ * @Site: <a href="www.51doit.com">多易教育</a>
+ * @QQ: 657270652
+ * @Date: 2022/6/12
+ * @Desc: 学大数据，到多易教育
+ *   表创建方式示例：  带sql表名称的
+ **/
 public class Demo4_SqlTableCreate {
 
     public static void main(String[] args) {

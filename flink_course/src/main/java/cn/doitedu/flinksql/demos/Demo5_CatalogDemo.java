@@ -6,7 +6,14 @@ import org.apache.flink.table.api.Schema;
 import org.apache.flink.table.api.TableDescriptor;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.table.catalog.hive.HiveCatalog;
-
+/**
+ * @Author: deep as the sea
+ * @Site: <a href="www.51doit.com">多易教育</a>
+ * @QQ: 657270652
+ * @Date: 2022/6/12
+ * @Desc: 学大数据，到多易教育
+ *        hive元数据空间 catalog 原理测试
+ **/
 public class Demo5_CatalogDemo {
 
     public static void main(String[] args) {

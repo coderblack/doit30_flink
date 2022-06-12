@@ -10,7 +10,7 @@ import org.apache.flink.table.api.TableEnvironment;
  * @Date: 2022/6/11
  * @Desc: schema定义详细示例
  **/
-public class Demo7_ColumnDetail_Sql {
+public class Demo7_ColumnDetail1_Sql {
     public static void main(String[] args) {
 
         TableEnvironment tenv = TableEnvironment.create(EnvironmentSettings.inStreamingMode());

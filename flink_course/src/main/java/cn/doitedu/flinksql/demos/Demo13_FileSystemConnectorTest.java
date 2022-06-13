@@ -24,7 +24,7 @@ public class Demo13_FileSystemConnectorTest {
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env, environmentSettings);
 
 
-        // 建表来映射 mysql中的 flinktest.stu
+        // 建表 fs_table 来映射 mysql中的flinktest.stu
         tenv.executeSql(
                 "CREATE TABLE fs_table (\n" +
                         "  user_id STRING,\n" +
@@ -44,7 +44,7 @@ public class Demo13_FileSystemConnectorTest {
         );
 
 
-        // 1,male
+        // u01,88.8,2022-06-13,14
         SingleOutputStreamOperator<Tuple4<String, Double, String, String>> stream = env
                 .socketTextStream("doitedu", 9999)
                 .map(s -> {

@@ -168,9 +168,15 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
+            <version>8.0.27</version>
         </dependency>
 
+        <!-- flink-cdc-mysql 连接器-->
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-sql-connector-mysql-cdc</artifactId>
+            <version>2.3-doitedu</version>
+        </dependency>
 
         <!-- 应用redisSink功能所需要的依赖 -->
         <dependency>

@@ -86,13 +86,5 @@ public class Demo14_MysqlCdcConnector {
                 ") o1\n" +
                 ") o2\n" +
                 "where rn<=2");
-
-
-
-
-
-
     }
-
-
 }

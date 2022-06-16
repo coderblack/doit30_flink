@@ -2,7 +2,6 @@ package cn.doitedu.flinksql.demos;
 
 import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -20,7 +19,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
  * 常规join的底层实现，是通过在用状态来缓存两表数据实现的
  * 所以，状态体积可能持续膨胀，为了安全起见，可以设置状态的 ttl 时长，来控制状态的体积上限
  **/
-public class Demo18_LookupJoin {
+public class Demo19_LookupJoin {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

@@ -10,7 +10,14 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.DataTypes;
 import org.apache.flink.table.api.Schema;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-
+/**
+ * @Author: deep as the sea
+ * @Site: <a href="www.51doit.com">多易教育</a>
+ * @QQ: 657270652
+ * @Date: 2022/6/16
+ * @Desc: 学大数据，到多易教育
+ *    各种窗口JOIN的代码示例
+ **/
 public class Demo17_TimeWindowJoin {
 
     public static void main(String[] args) {
@@ -118,8 +125,6 @@ public class Demo17_TimeWindowJoin {
                         "  where a.window_start=b.window_start and a.window_end=b.window_end \n" +
                         ")"
         ).print();
-
-
     }
 
 }

@@ -37,7 +37,9 @@ public class Demo21_CustomScalarFunction {
         public String eval(String str){
             return str.toUpperCase();
         }
-
     }
+
+
+
 
 }

@@ -56,11 +56,14 @@ public class ActionLogAutoGen {
     public static void main(String[] args) throws Exception {
 
         // 加载历史用户
-        String filePath = "data/users/hisu-1654943006977.txt";
-        HashMap<String, LogBean> hisUsers = UserUtils.loadHisUsers(filePath);
+        // String filePath = "data/users/hisu-1654943006977.txt";
+        // HashMap<String, LogBean> hisUsers = UserUtils.loadHisUsers(filePath);
 
         // 添加新用户
-        UserUtils.addNewUsers(hisUsers, 10, true);
+        HashMap<String, LogBean> hisUsers = new HashMap<>();
+        UserUtils.addNewUsers(hisUsers, 1000, true);
+
+        UserUtils.saveUsers(hisUsers);
 
         // 转成带状态用户数据
         List<LogBeanWrapper> wrapperedUsers = UserUtils.userToWrapper(hisUsers);
@@ -69,7 +72,7 @@ public class ActionLogAutoGen {
 
         // 多线程并行生成日志
         // CollectorConsoleImpl collector = new CollectorConsoleImpl();
-        CollectorKafkaImpl collector = new CollectorKafkaImpl("events");
+        CollectorKafkaImpl collector = new CollectorKafkaImpl("doit-events");
         genBatchToConsole(wrapperedUsers, 3,collector);
 
 

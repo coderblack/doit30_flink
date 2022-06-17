@@ -1,6 +1,5 @@
 package cn.doitedu.flinksql.demos;
 
-import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.table.annotation.DataTypeHint;
 import org.apache.flink.table.annotation.FunctionHint;
 import org.apache.flink.table.api.DataTypes;
@@ -11,8 +10,7 @@ import org.apache.flink.table.functions.TableAggregateFunction;
 import org.apache.flink.types.Row;
 import org.apache.flink.util.Collector;
 
-import static org.apache.flink.table.api.Expressions.$;
-import static org.apache.flink.table.api.Expressions.call;
+import static org.apache.flink.table.api.Expressions.*;
 
 /**
  * @Author: deep as the sea
@@ -29,14 +27,16 @@ import static org.apache.flink.table.api.Expressions.call;
  * 5,female,ee,92
  * 6,female,ff,86
  * <p>
- * -- 求每种性别中，分数最高的两个成绩
+ * -- 求每种性别中，分数最高的两个学生
  * -- 常规写法
  * SELECT
  * *
  * FROM
  * (
  * SELECT
+ * id,
  * gender,
+ * name,
  * score,
  * row_number() over(partition by gender order by score desc) as rn
  * FROM  t
@@ -46,17 +46,20 @@ import static org.apache.flink.table.api.Expressions.call;
  * <p>
  * -- 如果有一种聚合函数，能在分组聚合的模式中，对每组数据输出多行多列聚合结果
  * SELECT
+ * id,
+ * name,
  * gender,
- * top2(score)
+ * score,
+ * funciont_xxx(score,2)
  * from t
  * group by gender
  * <p>
- * male,88
- * male,99
- * female,92
- * female,86
+ * 1,male,zs,88
+ * 2,male,bb,99
+ * 5,female,ee,92
+ * 6,female,ff,86
  **/
-public class Demo24_TableAggregateFunction {
+public class Demo24_TableAggregateFunction2 {
 
     public static void main(String[] args) {
         TableEnvironment tenv = TableEnvironment.create(EnvironmentSettings.inStreamingMode());
@@ -73,11 +76,11 @@ public class Demo24_TableAggregateFunction {
         );
         tenv.createTemporaryView("t", table);
 
-        // 用一个聚合函数直接求出每种性别中最高的两个成绩
+        // 用一个聚合函数直接求出每种性别中成绩最高的2个人
         table
                 .groupBy($("gender"))
-                .flatAggregate(call(MyTop2.class, $("score")))
-                .select($("gender"), $("score_top"), $("rank_no"))
+                .flatAggregate(call(MyTop2.class, row($("id"), $("gender"), $("score"))))
+                .select($("id"), $("gender"), $("score"))
                 .execute().print();
 
 
@@ -85,20 +88,20 @@ public class Demo24_TableAggregateFunction {
 
     public static class MyAccumulator {
 
-        public double first;
-        public double second;
+        public @DataTypeHint("ROW<id INT,rgender STRING,score DOUBLE>") Row first;
+        public @DataTypeHint("ROW<id INT,rgender STRING,score DOUBLE>") Row second;
 
     }
 
-    @FunctionHint(output = @DataTypeHint("ROW<score_top DOUBLE, rank_no INT>"))
+    @FunctionHint(input =@DataTypeHint("ROW<id INT,gender STRING,score DOUBLE>") ,output = @DataTypeHint("ROW<id INT,rgender STRING,score DOUBLE>"))
     public static class MyTop2 extends TableAggregateFunction<Row, MyAccumulator> {
 
         @Override
         public MyAccumulator createAccumulator() {
 
             MyAccumulator acc = new MyAccumulator();
-            acc.first = Double.MIN_VALUE;
-            acc.second = Double.MIN_VALUE;
+            acc.first = null;
+            acc.second = null;
 
             return acc;
         }
@@ -110,12 +113,14 @@ public class Demo24_TableAggregateFunction {
          * @param acc
          * @param value
          */
-        public void accumulate(MyAccumulator acc, Double score) {
-            if (score > acc.first) {
+        public void accumulate(MyAccumulator acc, Row row) {
+
+            double score = (double) row.getField(2);
+            if (acc.first == null || score > (double)acc.first.getField(2)) {
                 acc.second = acc.first;
-                acc.first = score;
-            } else if (score > acc.second) {
-                acc.second = score;
+                acc.first = row;
+            } else if (acc.second == null || score > (double)acc.second.getField(2)) {
+                acc.second = row;
             }
         }
 
@@ -133,11 +138,11 @@ public class Demo24_TableAggregateFunction {
          * @param out
          */
         public void emitValue(MyAccumulator acc, Collector<Row> out) {
-            if (acc.first != Double.MIN_VALUE) {
-                out.collect(Row.of(acc.first, 1));
+            if (acc.first != null) {
+                out.collect(acc.first);
             }
-            if (acc.second != Double.MIN_VALUE) {
-                out.collect(Row.of(acc.second, 2));
+            if (acc.second != null) {
+                out.collect(acc.second);
             }
         }
     }

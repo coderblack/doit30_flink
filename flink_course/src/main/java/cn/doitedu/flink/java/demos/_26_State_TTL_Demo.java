@@ -101,8 +101,8 @@ public class _26_State_TTL_Demo {
                                 .useProcessingTime()  // ttl计时的时间语义:设置为处理时间
 
                                 // 下面3种过期数据检查清除策略，不是覆盖的关系，而是添加的关系
-                                .cleanupIncrementally(10,true)  // 增量清理（每当一条状态数据被访问，则会检查这条状态数据的ttl是否超时，是就删除）
-                                //.cleanupFullSnapshot()  // 全量快照清理策略（在checkpoint的时候，保存到快照文件中的只包含未过期的状态数据，但是它并不会清理算子本地的状态数据）
+                                .cleanupIncrementally(1,false)  // 增量清理（每当一条状态数据被访问，则会检查这条状态数据的ttl是否超时，是就删除）
+                                .cleanupFullSnapshot()  // 全量快照清理策略（在checkpoint的时候，保存到快照文件中的只包含未过期的状态数据，但是它并不会清理算子本地的状态数据）
                                 //.cleanupInRocksdbCompactFilter(1000) // 在rocksdb的compact机制中添加过期数据过滤器，以在compact过程中清理掉过期状态数据
 
                                 //.disableCleanupInBackground()

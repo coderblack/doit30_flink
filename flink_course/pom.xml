@@ -175,7 +175,7 @@
         <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-sql-connector-mysql-cdc</artifactId>
-            <version>2.3-doitedu</version>
+            <version>2.3-SNAPSHOT</version>
         </dependency>
 
         <!-- 应用redisSink功能所需要的依赖 -->
@@ -198,7 +198,11 @@
             <artifactId>RoaringBitmap</artifactId>
             <version>0.9.28</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-metrics-dropwizard</artifactId>
+            <version>1.14.4</version>
+        </dependency>
 
     </dependencies>
 

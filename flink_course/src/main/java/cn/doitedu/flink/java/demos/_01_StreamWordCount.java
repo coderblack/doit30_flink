@@ -23,13 +23,13 @@ public class _01_StreamWordCount {
 
         // 创建一个编程入口环境
         // ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();   // 批处理的入口环境
-        // StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();  // 流批一体的入口环境
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();  // 流批一体的入口环境
 
 
         // 显式声明为本地运行环境，且带webUI
-        Configuration configuration = new Configuration();
-        configuration.setInteger("rest.port", 8081);
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
+        //Configuration configuration = new Configuration();
+        //configuration.setInteger("rest.port", 8081);
+        //StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
 
 
         /**
@@ -55,11 +55,12 @@ public class _01_StreamWordCount {
                             collector.collect(Tuple2.of(word, 1));
                         }
                     }
-                }).setParallelism(10)
+                })
+                /*.setParallelism(10)
                 .slotSharingGroup("g2")
-                .shuffle();
+                .shuffle()*/;
 
-        SingleOutputStreamOperator<Tuple2<String, Integer>> words2 = words.map(tp -> Tuple2.of(tp.f0, tp.f1 * 10));
+        //SingleOutputStreamOperator<Tuple2<String, Integer>> words2 = words.map(tp -> Tuple2.of(tp.f0, tp.f1 * 10));
 
 
         KeyedStream<Tuple2<String, Integer>, String> keyed = words.keyBy(new KeySelector<Tuple2<String, Integer>, String>() {
@@ -71,7 +72,7 @@ public class _01_StreamWordCount {
         });
 
 
-        SingleOutputStreamOperator<Tuple2<String, Integer>> resultStream = keyed.sum("f1").slotSharingGroup("g1");
+        SingleOutputStreamOperator<Tuple2<String, Integer>> resultStream = keyed.sum("f1")/*.slotSharingGroup("g1")*/;
 
         // 通过sink算子，将结果输出
         resultStream.print("wcSink");

@@ -39,6 +39,23 @@ public class Demo14_MysqlCdcConnector {
                 "     'table-name' = 'score'\n" +
                 ")");
 
+        tenv.executeSql("CREATE TABLE t1 (\n" +
+                "      id INT,\n" +
+                "      name string,\n" +
+                "      PRIMARY KEY(id) NOT ENFORCED\n" +
+                "     ) WITH (\n" +
+                "     'connector' = 'mysql-cdc',\n" +
+                "     'hostname' = 'doitedu',\n" +
+                "     'port' = '3306',\n" +
+                "     'username' = 'root',\n" +
+                "     'password' = 'root',\n" +
+                "     'database-name' = 'doitedu',\n" +
+                "     'table-name' = 't1'\n" +
+                ")");
+
+        tenv.executeSql("select * from t1").print();
+        System.exit(1);
+
         // 查询
         tenv.executeSql("select * from flink_score")/*.print()*/;
 

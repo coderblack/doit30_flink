@@ -68,6 +68,12 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-sql-connector-hive-3.1.2_2.11</artifactId>
             <version>${flink.version}</version>
+            <!--<exclusions>
+                <exclusion>
+                    <groupId>org.apache.avro</groupId>
+                    <artifactId>avro</artifactId>
+                </exclusion>
+            </exclusions>-->
         </dependency>
 
 
@@ -140,21 +146,37 @@
             <artifactId>flink-avro</artifactId>
             <version>${flink.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.parquet</groupId>
             <artifactId>parquet-avro</artifactId>
-            <version>1.11.1</version>
+            <version>1.10.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
             <version>2.7.7</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-files</artifactId>
             <version>${flink.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.thoughtworks.paranamer</groupId>
+            <artifactId>paranamer</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
+        <!--<dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>1.11.1</version>
+        </dependency>-->
+
         <!-- 应用StreamFileSink功能所需要的依赖 -->
 
 
